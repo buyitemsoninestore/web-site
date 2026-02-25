@@ -626,4 +626,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const miniCount = document.querySelector('.cart-count-mini');
         if (miniCount) miniCount.textContent = count;
     });
+
+    // App Loader Hiding Logic
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('app-loader');
+        if (loader) {
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.visibility = 'hidden';
+                }, 500);
+            }, 1500); // Show for 1.5s for that premium feel
+        }
+    });
 });
