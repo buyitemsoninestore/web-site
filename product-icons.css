@@ -7,17 +7,16 @@
 }
 
 .product-icons-container {
-    max-width: 1200px;
+    max-width: var(--wrap-width, 1200px);
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: clamp(1rem, 4vw, 2.5rem);
     flex-wrap: nowrap;
     overflow-x: auto;
     padding: 0 20px;
     scrollbar-width: none;
-    /* Firefox */
 }
 
 .product-icons-container::-webkit-scrollbar {

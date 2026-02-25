@@ -14,6 +14,22 @@
     --font-main: 'Outfit', sans-serif;
     --transition-speed: 0.4s;
     --glass-bg: rgba(255, 255, 255, 0.04);
+
+    /* Responsive Design Tokens */
+    --wrap-width: 1400px;
+    --fluid-1: clamp(1rem, 2vw, 1.5rem);
+    --fluid-2: clamp(1.5rem, 4vw, 3rem);
+    --fluid-3: clamp(2rem, 6vw, 4.5rem);
+    --mobile-nav-height: 70px;
+    --desktop-nav-height: 80px;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --fluid-1: 1.2rem;
+        --fluid-2: 1.8rem;
+        --fluid-3: 2.2rem;
+    }
 }
 
 /* Premium Scrollbar */
@@ -49,8 +65,7 @@
     width: 100%;
     background: #000;
     overflow: hidden;
-    margin-top: 105px;
-    /* Adjust for ticker (45px) + navbar (60px approx) */
+    margin-top: calc(var(--desktop-nav-height) + 45px);
     position: relative;
     z-index: 10;
     height: auto;
@@ -88,17 +103,15 @@
 
 @media (max-width: 480px) {
     .top-site-banner {
-        margin-top: 65px;
-        /* Ensure banner starts below fixed navbar */
+        margin-top: 0;
+        height: auto;
     }
 
     .banner-img {
-        border-radius: 0 0 10px 10px;
-        max-height: none;
-        /* Show full banner */
+        border-radius: 0;
         width: 100%;
-        object-fit: contain;
-        /* Show complete image on mobile */
+        object-fit: cover;
+        height: 120px;
     }
 }
 
@@ -159,7 +172,7 @@
 .ticker-item {
     display: flex;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 20px;
     color: var(--text-secondary);
     font-size: 0.8rem;
     font-weight: 500;
@@ -197,6 +210,24 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    /* Desktop Default */
+}
+
+/* Responsive Body Font Sizes */
+@media (max-width: 992px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
 }
 
 /* Background Glow Effect */
@@ -346,10 +377,9 @@ body {
 
 /* YouTube Player Frame Styles */
 .youtube-player-frame {
-    max-width: 500px;
+    max-width: min(600px, 95vw);
     width: 100%;
     aspect-ratio: 16 / 9;
-    /* Enforce 16:9 Aspect Ratio */
     position: relative;
     border-radius: 12px;
     overflow: hidden;
@@ -526,7 +556,7 @@ h3 {
 }
 
 .section-title {
-    font-size: 2.5rem;
+    font-size: var(--fluid-2);
     text-align: center;
     margin-bottom: 2rem;
     position: relative;
@@ -559,10 +589,12 @@ h3 {
 .navbar {
     position: fixed;
     top: 45px;
-    /* Sit exactly below ticker */
     left: 0;
     width: 100%;
-    padding: 20px 0;
+    height: var(--desktop-nav-height);
+    display: flex;
+    align-items: center;
+    padding: 0;
     z-index: 1000;
     background: rgba(10, 10, 10, 0.8);
     backdrop-filter: blur(20px) saturate(180%);
@@ -942,9 +974,10 @@ h3 {
 }
 
 .hero-text h1 {
-    font-size: 3.5rem;
+    font-size: var(--fluid-3);
     margin-bottom: 1.5rem;
     line-height: 1.1;
+    letter-spacing: -1px;
 }
 
 .hero-text p {
@@ -1052,7 +1085,7 @@ h3 {
 
 .best-sellers-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     gap: 1.5rem;
     margin-top: 1.5rem;
 }
@@ -1555,30 +1588,26 @@ h3 {
 }
 
 .container {
-    max-width: 1600px;
-    /* Vastly expanded for Full View */
-    width: 96%;
-    /* Utilizes almost 100% of visible space */
+    max-width: var(--wrap-width);
+    width: 92%;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 var(--fluid-1);
+    position: relative;
 }
 
 /* Responsive container padding */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .container {
-        padding: 0 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0 1rem;
+        width: 100% !important;
+        padding: 0 16px !important;
+        margin: 0 !important;
+        max-width: 100% !important;
     }
 }
 
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
     gap: 2rem;
 }
 
@@ -1621,7 +1650,7 @@ h3 {
 
 .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     gap: 2rem;
     align-items: stretch;
 }
@@ -2228,7 +2257,7 @@ h3 {
     }
 
     .hero {
-        padding: 3rem 0 3rem;
+        padding: 2rem 0;
         min-height: auto;
     }
 
@@ -2264,6 +2293,15 @@ h3 {
         display: none;
     }
 
+    .nav-actions {
+        gap: 1rem;
+    }
+
+    .nav-search-wrapper {
+        display: none;
+        /* Hide search in navbar on mobile, maybe move to menu */
+    }
+
     .mobile-menu-btn {
         display: flex;
     }
@@ -2272,14 +2310,26 @@ h3 {
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 70px;
+        top: 100%;
         left: 0;
         width: 100%;
-        background: rgba(15, 15, 15, 0.98);
+        background: rgba(10, 10, 10, 0.98);
         padding: 2rem;
         backdrop-filter: blur(15px);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         z-index: 999;
+        border-bottom: 1px solid var(--card-border);
+    }
+
+    .nav-links.active li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links.active a {
+        display: block;
+        padding: 1rem;
+        font-size: 1.2rem;
     }
 
     .cart-navbar-value {
@@ -2299,14 +2349,16 @@ h3 {
     .pricing,
     .other-services,
     .payment-methods {
-        padding: 4rem 0;
+        padding: 3rem 0;
     }
 
     /* Adjust card sizes */
     .pricing-card,
     .service-card,
     .stat-card {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem;
+        margin: 0 auto;
+        width: 100%;
     }
 }
 
@@ -2356,11 +2408,23 @@ h3 {
     }
 
     .top-notification-bar {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         height: auto;
-        padding: 0.8rem 0.5rem;
+        padding: 0.6rem 0.5rem;
         flex-wrap: wrap;
         text-align: center;
+        position: relative;
+        /* Stick to top but let content flow */
+    }
+
+    .navbar {
+        top: 0;
+        /* Align to top of viewport or after static notification bar */
+        position: sticky;
+    }
+
+    .top-site-banner {
+        margin-top: 0 !important;
     }
 
     /* Mobile-specific adjustments */
@@ -2467,12 +2531,12 @@ h3 {
 
     /* Better logo sizing on mobile */
     .logo {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .logo-icon {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
     }
 
     /* Adjust navbar padding */
@@ -2490,10 +2554,11 @@ h3 {
         background: rgba(10, 10, 10, 0.98);
     }
 
-    /* Ensure banner shows below navbar */
+    /* Ensure banner shows below navbar if notification bar is fixed */
     .top-site-banner {
-        margin-top: 65px !important;
+        margin-top: 0 !important;
         display: flex;
+        width: 100%;
     }
 
     .banner-img {
@@ -2527,7 +2592,14 @@ h3 {
     .yt-button-premium,
     .fb-button-premium {
         font-size: 0.85rem;
-        padding: 0.7rem 1.5rem;
+        padding: 0.7rem 1.2rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .footer-social-bottom {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 
@@ -4313,6 +4385,13 @@ h3 {
 @media (max-width: 992px) {
     .trust-seals-row {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .trust-seals-row {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -4522,17 +4601,23 @@ h3 {
     }
 
     .banner-img {
-        margin-top: 100px;
+        margin-top: 0;
+        height: 140px;
     }
 
-    .product-icons-wrapper {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.8rem;
+    .product-icons-container {
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+        padding: 10px 15px;
+    }
+
+    .product-icon-item {
+        min-width: 65px;
     }
 
     .product-icon-item p {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
 }
 
@@ -4607,6 +4692,24 @@ h3 {
     gap: 2.5rem;
     position: relative;
     z-index: 2;
+}
+
+@media (max-width: 992px) {
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .step-card {
+        padding: 2rem 1rem !important;
+    }
 }
 
 .step-card {

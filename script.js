@@ -259,6 +259,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateCartUI = () => {
         cartCount.textContent = cart.length;
 
+        // Dispatch event for mobile bottom nav
+        window.dispatchEvent(new CustomEvent('updateCartCount', { detail: { count: cart.length } }));
+
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<div class="empty-cart-msg">Your cart is empty</div>';
             cartTotalValue.textContent = 'Rs. 0';
@@ -340,6 +343,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 toggleCart();
             }
         });
+    });
+
+    // Listen for Chatbot Cart Events
+    window.addEventListener('addItemToCart', (e) => {
+        const { name, price, period } = e.detail;
+        cart.push({ name, price, period });
+        updateCartUI();
+
+        if (window.triggerConfetti) window.triggerConfetti();
+
+        if (!cartSidebar.classList.contains('active')) {
+            toggleCart();
+        }
     });
 
     const paymentModal = document.getElementById('payment-modal');
@@ -593,5 +609,21 @@ document.addEventListener('DOMContentLoaded', () => {
             top: 0,
             behavior: 'smooth'
         });
+    });
+
+    // Mobile Bottom Nav Active State
+    const bottomNavItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
+    bottomNavItems.forEach(item => {
+        item.addEventListener('click', () => {
+            bottomNavItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+        });
+    });
+
+    // Update Cart Count in Bottom Nav
+    window.addEventListener('updateCartCount', (e) => {
+        const count = e.detail.count;
+        const miniCount = document.querySelector('.cart-count-mini');
+        if (miniCount) miniCount.textContent = count;
     });
 });

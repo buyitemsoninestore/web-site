@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="product-icons.css">
+    <link rel="stylesheet" href="chatbot.css">
+    <link rel="stylesheet" href="mobile-ux.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <meta name="description"
         content="Get YouTube Premium at the best rates in Sri Lanka. Ad-free, background play, and offline downloads.">
@@ -1979,6 +1981,139 @@
         });
     });
 </script>
+<!-- Chatbot Integration -->
+<div class="chatbot-wrapper">
+    <div class="chat-trigger-bubble" id="chat-trigger">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
+        </svg>
+        <div class="chat-badge">1</div>
+    </div>
+
+    <div class="chat-window" id="chat-window">
+        <!-- Brand Header (SellX Style) -->
+        <div class="chat-header">
+            <div class="bot-profile-container">
+                <div class="bot-avatar-premium">
+                    <img src="https://ui-avatars.com/api/?name=Buy+Items&background=FF0000&color=fff" alt="Bot Avatar">
+                    <div class="online-indicator"></div>
+                </div>
+                <div class="bot-details">
+                    <div class="bot-name-row">
+                        <h3>BuyItems AI</h3>
+                        <span class="verified-badge">
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="#1d9bf0"
+                                    d="M22.5 12.5c0-1.58-.88-2.95-2.18-3.66.26-.55.38-1.15.38-1.74 0-2.21-1.79-4-4-4-.59 0-1.19.12-1.74.38-.71-1.3-2.08-2.18-3.66-2.18s-2.95.88-3.66 2.18c-.55-.26-1.15-.38-1.74-.38-2.21 0-4 1.79-4 4 0 .59.12 1.19.38 1.74-1.3.71-2.18 2.08-2.18 3.66s.88 2.95 2.18 3.66c-.26.55-.38 1.15-.38 1.74 0 2.21 1.79 4 4 4 .59 0 1.19-.12 1.74-.38.71 1.3 2.08 2.18 3.66 2.18s2.95-.88 3.66-2.18c.55.26 1.15.38 1.74.38 2.21 0 4-1.79 4-4 0-.59-.12-1.19-.38-1.74 1.3-.71 2.18-2.08 2.18-3.66zM9.5 16.5l-4.5-4.5 1.41-1.41L9.5 13.67l7.59-7.59L18.5 7.5l-9 9z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="status-text">Your Personal Concierge</p>
+                </div>
+            </div>
+            <button class="close-chat" id="close-chat-btn">&times;</button>
+        </div>
+
+        <div class="chat-main-container">
+            <!-- Navigation Sidebar (Menu) -->
+            <div class="chat-sidebar-left">
+                <div class="sidebar-top">
+                    <p class="sidebar-label">Navigation</p>
+                    <div class="category-buttons">
+                        <button class="cat-btn" onclick="handleCategoryClick('all')">
+                            <span class="cat-icon">🏠</span> Home
+                        </button>
+                        <button class="cat-btn" onclick="handleCategoryClick('YouTube')">
+                            <span class="cat-icon">📺</span> YouTube
+                        </button>
+                        <button class="cat-btn" onclick="handleCategoryClick('Netflix')">
+                            <span class="cat-icon">🍿</span> Netflix
+                        </button>
+                        <button class="cat-btn" onclick="handleCategoryClick('Spotify')">
+                            <span class="cat-icon">🎵</span> Music
+                        </button>
+                        <button class="cat-btn" onclick="handleCategoryClick('Bank')">
+                            <span class="cat-icon">🏦</span> Payment
+                        </button>
+                    </div>
+                </div>
+                <div class="sidebar-footer">
+                    <a href="https://wa.me/94765494631" target="_blank" class="sidebar-wa-btn">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Chat/Content Area -->
+            <div class="chat-right-side">
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Home Screen View (Initial) -->
+                    <div class="chat-welcome-home" id="chat-welcome-home">
+                        <div class="welcome-badge">SYSTEMS ACTIVE</div>
+                        <h2>What can we help with <span>today?</span></h2>
+                        <div class="home-quick-actions">
+                            <div class="action-card" onclick="handleCategoryClick('all')">
+                                <div class="action-icon">📑</div>
+                                <span>All Details</span>
+                            </div>
+                            <div class="action-card" onclick="handleCategoryClick('Packages')">
+                                <div class="action-icon">🛍️</div>
+                                <span>Browse Plans</span>
+                            </div>
+                            <div class="action-card" onclick="handleCategoryClick('Bank')">
+                                <div class="action-icon">💳</div>
+                                <span>How to Pay</span>
+                            </div>
+                        </div>
+                        <p class="home-footer">or type your question below</p>
+                    </div>
+                    <!-- Conversation will be injected here -->
+                </div>
+
+                <div class="typing" id="typing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button class="send-btn" id="send-btn">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="chatbot.js"></script>
+<!-- Modern Mobile Bottom Navigation -->
+<nav class="mobile-bottom-nav">
+    <a href="#" class="nav-item active">
+        <div class="nav-icon-box">🏠</div>
+        <span>Home</span>
+    </a>
+    <a href="#pricing" class="nav-item">
+        <div class="nav-icon-box">🏷️</div>
+        <span>Plans</span>
+    </a>
+    <a href="reviews.html" class="nav-item">
+        <div class="nav-icon-box">⭐</div>
+        <span>Reviews</span>
+    </a>
+    <a href="javascript:void(0)" class="nav-item cart-trigger">
+        <div class="nav-icon-box">
+            🛒
+            <span class="cart-count-mini">0</span>
+        </div>
+        <span>Cart</span>
+    </a>
+</nav>
 </body>
 
 </html>
