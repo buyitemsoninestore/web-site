@@ -1,0 +1,22 @@
+{
+  "name": "BuyItemsOnline.lk",
+  "short_name": "BuyItems",
+  "description": "Premium YouTube, Netflix & Spotify Subscriptions in Sri Lanka",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0F0F0F",
+  "theme_color": "#FF0000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://ui-avatars.com/api/?name=B&background=FF0000&color=fff&size=192",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://ui-avatars.com/api/?name=B&background=FF0000&color=fff&size=512",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

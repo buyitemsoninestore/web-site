@@ -230,6 +230,29 @@ body {
     }
 }
 
+.top-bar-actions {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
+}
+
+.top-auth-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+.top-auth-link:hover {
+    background: var(--primary-red);
+    transform: scale(1.05);
+}
+
 /* Background Glow Effect */
 .background-glow {
     position: fixed;
@@ -764,7 +787,38 @@ h3 {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
+}
+
+.nav-auth-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 8px 18px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-auth-btn:hover {
+    background: var(--primary-red);
+    border-color: var(--primary-red);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+}
+
+.nav-auth-btn svg {
+    color: var(--primary-red);
+    transition: 0.3s;
+}
+
+.nav-auth-btn:hover svg {
+    color: white;
 }
 
 /* Premium Search Bar Styling */

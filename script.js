@@ -627,16 +627,101 @@ document.addEventListener('DOMContentLoaded', () => {
         if (miniCount) miniCount.textContent = count;
     });
 
-    // App Loader Hiding Logic
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('app-loader');
-        if (loader) {
+
+    // --- Modern Website Features ---
+
+    // FAQ Accordion Logic
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            faqItems.forEach(i => i.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        });
+    });
+
+    // Social Proof (Live Sales Notifications) simulation
+    const sn = document.getElementById('sales-notification');
+    if (sn) {
+        const locations = ['Colombo', 'Kandy', 'Galle', 'Gampaha', 'Kalutara', 'Negombo', 'Jaffna', 'Matara', 'Kurunegala'];
+        const products = ['YouTube Premium', 'Netflix Premium', 'Spotify Premium', 'CapCut Pro', 'Disney+ Premium'];
+
+        const showSN = () => {
+            const snBuyer = document.getElementById('sn-buyer');
+            const snProduct = document.getElementById('sn-product');
+            if (snBuyer && snProduct) {
+                snBuyer.innerText = `Someone from ${locations[Math.floor(Math.random() * locations.length)]}`;
+                snProduct.innerText = `just purchased ${products[Math.floor(Math.random() * products.length)]}`;
+                sn.classList.add('show');
+                setTimeout(() => sn.classList.remove('show'), 5000);
+            }
+        };
+
+        // Show first after 10s, then periodically
+        setTimeout(showSN, 10000);
+        setInterval(showSN, 60000);
+
+        sn.querySelector('.sn-close').addEventListener('click', () => sn.classList.remove('show'));
+    }
+
+    // Cookies Consent Logic
+    const cookiesBanner = document.getElementById('cookies-consent');
+    const acceptBtn = document.getElementById('accept-cookies');
+    if (cookiesBanner && acceptBtn) {
+        if (!localStorage.getItem('cookiesAccepted')) {
             setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.visibility = 'hidden';
-                }, 500);
-            }, 1500); // Show for 1.5s for that premium feel
+                cookiesBanner.style.display = 'block';
+            }, 2000);
         }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookiesBanner.style.display = 'none';
+        });
+    }
+
+    // --- Premium UI Interactions ---
+
+    // Custom Context Menu Logic
+    const contextMenu = document.getElementById('customContextMenu');
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        const { clientX: x, clientY: y } = e;
+        contextMenu.style.display = 'block';
+        contextMenu.style.left = `${x}px`;
+        contextMenu.style.top = `${y}px`;
+    });
+
+    document.addEventListener('click', () => {
+        if (contextMenu) contextMenu.style.display = 'none';
+    });
+
+    // Dynamic Tab Title Changer
+    let originalTitle = document.title;
+    window.addEventListener('blur', () => {
+        document.title = "Don't forget your premium! 💎";
+    });
+    window.addEventListener('focus', () => {
+        document.title = originalTitle;
+    });
+
+    // Magnetic Buttons (Basic implementation)
+    const mBtns = document.querySelectorAll('.btn-primary, .wa-float, .nav-item');
+    mBtns.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const position = btn.getBoundingClientRect();
+            const x = e.pageX - position.left - position.width / 2;
+            const y = e.pageY - position.top - position.height / 2;
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseout', () => {
+            btn.style.transform = 'translate(0px, 0px)';
+        });
+    });
+
+    // Image Hover Glow Automation
+    document.querySelectorAll('.product-card img, .logo-icon').forEach(img => {
+        img.classList.add('glow-on-hover');
     });
 });

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BuyItemsOnline.lk</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="auth.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="auth-page">
+    <div class="auth-glow glow-1"></div>
+    <div class="auth-glow glow-2"></div>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="index.html" class="auth-logo">B<span>.lk</span></a>
+            <h1>Create Account</h1>
+            <p>Join the premium community today</p>
+        </div>
+
+        <form class="auth-form" id="register-form">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" class="auth-input" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="auth-input" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="auth-input" placeholder="Min. 8 characters" required>
+            </div>
+            <div style="font-size: 0.8rem; color: #AAAAAA; margin-top: -10px;">
+                By signing up, you agree to our <a href="terms.html" style="color: #FF0000;">Terms</a> and <a
+                    href="privacy.html" style="color: #FF0000;">Privacy Policy</a>.
+            </div>
+            <button type="submit" class="auth-btn">Start your journey</button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a href="login.html">Sign In</a>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+
+</html>

@@ -66,7 +66,17 @@
 
     body {
         padding-bottom: 80px !important;
-        /* Space for bottom nav */
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* Allow selection only in inputs */
+    input,
+    textarea {
+        user-select: text !important;
+        -webkit-user-select: text !important;
     }
 
     /* Floating Button Adjustment */
@@ -81,6 +91,8 @@
     .navbar {
         height: 60px;
         background: rgba(10, 10, 10, 0.98) !important;
+        position: sticky;
+        top: 0;
     }
 
     .logo {
@@ -91,5 +103,62 @@
     .f-icon,
     .f-text {
         display: none !important;
+    }
+}
+
+/* App Splash Loader */
+#app-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0F0F0F;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+}
+
+.loader-logo {
+    width: 80px;
+    height: 80px;
+    background: #FF0000;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    font-weight: 800;
+    margin-bottom: 20px;
+    animation: pulseLoader 2s infinite;
+}
+
+.loader-text {
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+@keyframes pulseLoader {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
+    }
+
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 20px rgba(255, 0, 0, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
     }
 }
