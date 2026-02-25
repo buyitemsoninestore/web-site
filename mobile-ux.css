@@ -92,7 +92,7 @@
         height: 60px;
         background: rgba(10, 10, 10, 0.98) !important;
         position: sticky;
-        top: 0;
+        top: 40px;
     }
 
     .logo {

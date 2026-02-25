@@ -2463,18 +2463,21 @@ h3 {
 
     .top-notification-bar {
         font-size: 0.7rem;
-        height: auto;
+        height: 40px;
+        /* Fixed height for sticky calculation */
         padding: 0.6rem 0.5rem;
         flex-wrap: wrap;
         text-align: center;
-        position: relative;
-        /* Stick to top but let content flow */
+        position: sticky;
+        top: 0;
+        z-index: 10001;
     }
 
     .navbar {
-        top: 0;
-        /* Align to top of viewport or after static notification bar */
+        top: 40px;
+        /* Below the 40px ticker bar */
         position: sticky;
+        z-index: 10000;
     }
 
     .top-site-banner {
