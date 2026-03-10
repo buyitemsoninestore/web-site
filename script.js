@@ -20,6 +20,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
+    // 0.1 Mobile Menu Toggle Logic
+    const mobileBtn = document.getElementById('mobile-toggle');
+    const sideNav = document.querySelector('.nav-links');
+    if (mobileBtn && sideNav) {
+        mobileBtn.addEventListener('click', () => {
+            sideNav.classList.toggle('active');
+            mobileBtn.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                sideNav.classList.remove('active');
+                mobileBtn.classList.remove('active');
+            });
+        });
+    }
+
     // Custom Video Player Logic
     const playerFrame = document.getElementById('custom-player');
     const video = document.getElementById('yt-video');
@@ -103,24 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Mobile Menu Toggle
-    const mobileBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
 
-    if (mobileBtn) {
-        mobileBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileBtn.classList.toggle('active');
-        });
-    }
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            mobileBtn.classList.remove('active');
-        });
-    });
 
     // Smooth Scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
