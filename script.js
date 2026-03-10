@@ -1,4 +1,25 @@
+const PAYHERE_MERCHANT_ID = "1228514"; // Replace with your actual PayHere Merchant ID
+
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Preloader Automation 2.0 (Clean Version)
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.classList.add('loaded');
+                document.body.style.overflow = '';
+            }, 1200); // Branding presence delay
+        });
+        
+        // Safety fallback
+        setTimeout(() => {
+            if (!preloader.classList.contains('loaded')) {
+                preloader.classList.add('loaded');
+                document.body.style.overflow = '';
+            }
+        }, 4000);
+    }
+
     // Custom Video Player Logic
     const playerFrame = document.getElementById('custom-player');
     const video = document.getElementById('yt-video');
@@ -140,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.feature-card, .pricing-card, .service-card, .section-title').forEach(el => {
+    document.querySelectorAll('.feature-card, .pricing-card, .service-card, .section-title, .promo-banner-section').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
@@ -320,9 +341,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const name = e.target.dataset.name;
-            const price = e.target.dataset.price;
-            const period = e.target.dataset.period;
+            const button = e.currentTarget;
+            const name = button.dataset.name;
+            const price = button.dataset.price;
+            const period = button.dataset.period;
 
             cart.push({ name, price, period });
             updateCartUI();
@@ -331,11 +353,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (window.triggerConfetti) window.triggerConfetti();
 
             // Animation effect
-            e.target.textContent = 'Added! ✓';
-            e.target.classList.add('btn-success');
+            button.textContent = 'Added! ✓';
+            button.classList.add('btn-success');
             setTimeout(() => {
-                e.target.textContent = 'Add to Cart';
-                e.target.classList.remove('btn-success');
+                button.textContent = button.dataset.originalText || 'Add to Cart';
+                button.classList.remove('btn-success');
             }, 2000);
 
             // Directly show cart
@@ -430,40 +452,73 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (bankPopup) bankPopup.classList.add('active');
                 paymentModal.classList.remove('active');
             } else if (activeMethod === 'card') {
-                // Logic for Card Payment - Simulation
+                // Logic for PayHere Secure Payment Gateway
+                const total = parseInt(cartTotalValue.textContent.replace(/[^0-9]/g, ''));
+                const itemsList = cart.map(item => item.name).join(", ");
+                
+                // Show loading state on button
                 const originalText = finalCheckoutBtn.innerText;
                 finalCheckoutBtn.disabled = true;
-                finalCheckoutBtn.innerHTML = '<span class="loader-spinner"></span> Processing Securely...';
-                finalCheckoutBtn.style.opacity = '0.7';
+                finalCheckoutBtn.innerHTML = '<span class="loader-spinner"></span> Securely Redirecting...';
 
-                setTimeout(() => {
+                // PayHere Payment Object
+                const payment = {
+                    "sandbox": true, // Set to false when go live
+                    "merchant_id": PAYHERE_MERCHANT_ID,
+                    "return_url": window.location.href, 
+                    "cancel_url": window.location.href,
+                    "notify_url": "https://your-server.com/notify", // You'll need a backend for notifications
+                    "order_id": "ORDER-" + Math.floor(Math.random() * 1000000),
+                    "items": itemsList,
+                    "amount": total.toFixed(2),
+                    "currency": "LKR",
+                    "first_name": "Customer",
+                    "last_name": "User",
+                    "email": "customer@example.com",
+                    "phone": "0771234567",
+                    "address": "Colombo",
+                    "city": "Colombo",
+                    "country": "Sri Lanka"
+                };
+
+                payhere.onCompleted = function onCompleted(orderId) {
+                    console.log("Payment completed. OrderID:" + orderId);
                     finalCheckoutBtn.innerHTML = '✅ Payment Successful!';
                     finalCheckoutBtn.style.background = '#25d366';
-
+                    
                     setTimeout(() => {
-                        let message = "I have successfully paid via *Credit Card* for the following items:\n\n";
-                        cart.forEach((item, i) => {
-                            message += `${i + 1}. ${item.name} - ${item.price !== 'Enquire for Price' ? 'Rs. ' + item.price + (item.period || '') : item.price}\n`;
-                        });
-
-                        const total = cartTotalValue.textContent;
-                        message += `\nTotal Paid: ${total}\nReference: CARD-SUCCESS-${Math.floor(Math.random() * 100000)}\n\nPlease verify and activate.`;
-
+                        let message = `I have successfully paid Rs. ${total} via *Secure Card Payment* for:\n\n`;
+                        message += itemsList + "\n\n";
+                        message += `Order ID: ${orderId}\nPlease activate my subscription.`;
+                        
                         const whatsappUrl = `https://wa.me/94765494631?text=${encodeURIComponent(message)}`;
                         window.open(whatsappUrl, '_blank');
-
-                        // Reset button
-                        finalCheckoutBtn.disabled = false;
-                        finalCheckoutBtn.innerText = originalText;
-                        finalCheckoutBtn.style.background = '';
-                        finalCheckoutBtn.style.opacity = '1';
-                        paymentModal.classList.remove('active');
-
+                        
                         // Clear cart
                         cart = [];
                         updateCartUI();
+                        paymentModal.classList.remove('active');
+                        finalCheckoutBtn.disabled = false;
+                        finalCheckoutBtn.innerText = originalText;
                     }, 1500);
-                }, 2500);
+                };
+
+                payhere.onDismissed = function onDismissed() {
+                    console.log("Payment dismissed");
+                    finalCheckoutBtn.disabled = false;
+                    finalCheckoutBtn.innerHTML = originalText;
+                    alert("Payment was cancelled or dismissed.");
+                };
+
+                payhere.onError = function onError(error) {
+                    console.log("Error:"  + error);
+                    finalCheckoutBtn.disabled = false;
+                    finalCheckoutBtn.innerHTML = originalText;
+                    alert("PayHere Error: " + error);
+                };
+
+                payhere.startPayment(payment);
+
             } else {
                 // For QR, redirect to WhatsApp with order details
                 let message = "I want to purchase the following items:\n\n";
@@ -545,12 +600,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        quotationModal.addEventListener('click', (e) => {
-            if (e.target === quotationModal) {
-                quotationModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
+        if (quotationModal) {
+            quotationModal.addEventListener('click', (e) => {
+                if (e.target === quotationModal) {
+                    quotationModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
     }
 
     // Countdown Timer Logic
@@ -720,8 +777,103 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Image Hover Glow Automation
-    document.querySelectorAll('.product-card img, .logo-icon').forEach(img => {
-        img.classList.add('glow-on-hover');
+    // --- Advanced Features (World-Class UX) ---
+
+    // 1. Particle Background
+    const initParticles = () => {
+        const canvas = document.getElementById('bg-particles');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        };
+        animate();
+    };
+    initParticles();
+
+    // 2. 3D Tilt Effect
+    const handleTilt = (e, card) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    };
+
+    document.querySelectorAll('.pricing-card, .best-seller-card, .deal-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => handleTilt(e, card));
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    });
+
+    // 3. Adaptive Cursor
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    
+    document.addEventListener('mousemove', (e) => {
+        if (cursorDot && cursorOutline) {
+            cursorDot.style.left = `${e.clientX}px`;
+            cursorDot.style.top = `${e.clientY}px`;
+            cursorOutline.style.left = `${e.clientX}px`;
+            cursorOutline.style.top = `${e.clientY}px`;
+        }
+    });
+
+    const interactiveEls = document.querySelectorAll('a, button, .pricing-card, .best-seller-card, .nav-item');
+    interactiveEls.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorDot.classList.add('active');
+            cursorOutline.classList.add('active');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorDot.classList.remove('active');
+            cursorOutline.classList.remove('active');
+        });
     });
 });
