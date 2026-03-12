@@ -95,13 +95,13 @@
     }
 
     .product-icon-circle {
-        width: 60px;
-        height: 60px;
+        width: 65px;
+        height: 65px;
     }
 
     .product-icon-circle svg {
-        width: 32px !important;
-        height: 32px !important;
+        width: 36px !important;
+        height: 36px !important;
     }
 
     .product-icon-item p {
@@ -116,7 +116,16 @@
     }
 
     .product-icon-circle {
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .product-icon-circle svg {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    .product-icon-item p {
+        font-size: 11px;
     }
 }
