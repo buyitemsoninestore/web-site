@@ -101,19 +101,30 @@
     <!-- Fail-safe Preloader Script: Ensures content is visible even if main scripts fail -->
     <script>
         (function() {
-            function hideLoader() {
+            var hide = function() {
                 var pre = document.getElementById('preloader');
                 if (pre) {
                     pre.style.opacity = '0';
                     pre.style.visibility = 'hidden';
                     setTimeout(function() { pre.style.display = 'none'; }, 600);
                 }
-                document.body.style.opacity = '1';
-                document.body.style.overflow = 'visible';
-                document.body.style.visibility = 'visible';
-            }
-            setTimeout(hideLoader, 2000); // Fail-safe
-            window.addEventListener('load', hideLoader);
+                if (document.body) {
+                    document.body.style.opacity = '1';
+                    document.body.style.overflow = 'auto';
+                    document.body.style.visibility = 'visible';
+                }
+            };
+            window.addEventListener('load', hide);
+            var timer = setInterval(function() {
+                if (document.body) {
+                    clearInterval(timer);
+                    setTimeout(hide, 2000); 
+                }
+            }, 100);
+            // CSS Fallback
+            var style = document.createElement('style');
+            style.innerHTML = '#preloader { transition: opacity 0.5s, visibility 0.5s; } @keyframes autoHide { 0%, 95% { opacity: 1; visibility: visible; } 100% { opacity: 0; visibility: hidden; pointer-events: none; display: none; } } #preloader { animation: autoHide 4s forwards; }';
+            document.head.appendChild(style);
         })();
     </script>
 </head>
@@ -2159,6 +2170,14 @@
             </div>
         </div>
 
+        <button id="scroll-to-top" class="scroll-top-btn" aria-label="Go to Top">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+            <span>Top</span>
+        </button>
+
         <script src="script.js"></script>
         <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 
@@ -2238,36 +2257,33 @@
                     });
                 });
 
-                // Live Sales Notification Logic
+                // Live Sales Notification Logic (Safe version)
                 const sn = document.getElementById('sales-notification');
-                const snClose = sn.querySelector('.sn-close');
-                const snBuyer = document.getElementById('sn-buyer');
-                const snProduct = document.getElementById('sn-product');
-                const snTime = document.getElementById('sn-time');
+                if (sn) {
+                    const snClose = sn.querySelector('.sn-close');
+                    const snBuyer = document.getElementById('sn-buyer');
+                    const snProduct = document.getElementById('sn-product');
+                    const snTime = document.getElementById('sn-time');
 
-                const locations = ['Colombo', 'Kandy', 'Galle', 'Gampaha', 'Kalutara', 'Negombo', 'Jaffna', 'Matara', 'Kurunegala'];
-                const products = ['YouTube Premium', 'Netflix Premium', 'Spotify Premium', 'CapCut Pro', 'Disney+ Premium'];
+                    const locations = ['Colombo', 'Kandy', 'Galle', 'Gampaha', 'Kalutara', 'Negombo', 'Jaffna', 'Matara', 'Kurunegala'];
+                    const products = ['YouTube Premium', 'Netflix Premium', 'Spotify Premium', 'CapCut Pro', 'Disney+ Premium'];
 
-                function showNotification() {
-                    const randomLoc = locations[Math.floor(Math.random() * locations.length)];
-                    const randomProd = products[Math.floor(Math.random() * products.length)];
+                    function showNotification() {
+                        const randomLoc = locations[Math.floor(Math.random() * locations.length)];
+                        const randomProd = products[Math.floor(Math.random() * products.length)];
 
-                    snBuyer.innerText = `Someone from ${randomLoc}`;
-                    snProduct.innerText = `just purchased ${randomProd}`;
-                    snTime.innerText = 'Just now';
+                        if (snBuyer) snBuyer.innerText = `Someone from ${randomLoc}`;
+                        if (snProduct) snProduct.innerText = `just purchased ${randomProd}`;
+                        if (snTime) snTime.innerText = 'Just now';
 
-                    sn.classList.add('show');
+                        sn.classList.add('show');
+                        setTimeout(() => sn.classList.remove('show'), 5000);
+                    }
 
-                    setTimeout(() => {
-                        sn.classList.remove('show');
-                    }, 5000);
+                    if (snClose) snClose.addEventListener('click', () => sn.classList.remove('show'));
+                    setTimeout(showNotification, 10000);
+                    setInterval(showNotification, 55000);
                 }
-
-                snClose.addEventListener('click', () => sn.classList.remove('show'));
-
-                // Show first notification after 10 seconds, then every 45-60 seconds
-                setTimeout(showNotification, 10000);
-                setInterval(showNotification, 55000);
 
                 // Scroll Logic (Progress Bar & Scroll-to-Top)
                 const scrollBar = document.getElementById('scrollBar');
@@ -2281,10 +2297,12 @@
                     if (scrollBar) scrollBar.style.width = scrolled + "%";
 
                     // Scroll To Top Visibility
-                    if (winScroll > 400) {
-                        scrollTopBtn.classList.add('visible');
-                    } else {
-                        scrollTopBtn.classList.remove('visible');
+                    if (scrollTopBtn) {
+                        if (winScroll > 400) {
+                            scrollTopBtn.classList.add('visible');
+                        } else {
+                            scrollTopBtn.classList.remove('visible');
+                        }
                     }
                 });
 
