@@ -1,24 +1,7 @@
 const PAYHERE_MERCHANT_ID = "1228514"; // Replace with your actual PayHere Merchant ID
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 0. Preloader Automation 2.0 (Clean Version)
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        const hidePreloader = () => {
-            preloader.classList.add('loaded');
-            document.body.style.overflow = 'visible';
-            document.body.style.opacity = '1';
-        };
-
-        window.addEventListener('load', () => {
-            setTimeout(hidePreloader, 800); 
-        });
-        
-        // Safety fallback - 2s for mobile
-        setTimeout(() => {
-            if (!preloader.classList.contains('loaded')) hidePreloader();
-        }, 2000);
-    }
+    // Preloader fallback logic is now in index.html head for maximum reliability
 
     // 0.1 Mobile Menu Toggle Logic
     const mobileBtn = document.getElementById('mobile-toggle');

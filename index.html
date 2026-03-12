@@ -98,13 +98,24 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://buyitemsonline.lk">
-
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-    <!-- Canvas for Confetti -->
-    <canvas id="confetti-canvas"
-        style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 10002;"></canvas>
+    <!-- Fail-safe Preloader Script: Ensures content is visible even if main scripts fail -->
+    <script>
+        (function() {
+            function hideLoader() {
+                var pre = document.getElementById('preloader');
+                if (pre) {
+                    pre.style.opacity = '0';
+                    pre.style.visibility = 'hidden';
+                    setTimeout(function() { pre.style.display = 'none'; }, 600);
+                }
+                document.body.style.opacity = '1';
+                document.body.style.overflow = 'visible';
+                document.body.style.visibility = 'visible';
+            }
+            setTimeout(hideLoader, 2000); // Fail-safe
+            window.addEventListener('load', hideLoader);
+        })();
+    </script>
 </head>
 
 <body class="mobile-app-theme">
@@ -116,12 +127,12 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Modern Circular Preloader -->
+    <!-- Premium App Preloader -->
     <div id="preloader">
-        <div class="loader-wrapper">
-            <div class="loader-circle"></div>
-            <div class="loader-logo-container">
-                <div class="loader-logo-inner">BuyItems<span>.lk</span></div>
+        <div class="loader-content">
+            <img src="images/my-logo.png" alt="Logo" class="loader-logo">
+            <div class="loader-bar-container">
+                <div class="loader-bar-fill"></div>
             </div>
         </div>
     </div>
@@ -2285,22 +2296,8 @@
                         });
                     });
                 }
-
-                // Preloader Removal
-                const preloader = document.getElementById('preloader');
-                window.addEventListener('load', () => {
-                    setTimeout(() => {
-                        preloader.style.opacity = '0';
-                        setTimeout(() => {
-                            preloader.style.display = 'none';
-                        }, 600);
-                    }, 800); // Small delay for a premium feel
-                });
-
-                // Live Visitor Counter & Service Status Simulation
+                
                 const visitorCountEl = document.getElementById('visitor-count');
-                const serviceStatusEl = document.getElementById('service-status');
-
                 if (visitorCountEl) {
                     let currentVisitors = 142;
                     setInterval(() => {
