@@ -1,7 +1,24 @@
 const PAYHERE_MERCHANT_ID = "1228514"; // Replace with your actual PayHere Merchant ID
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Preloader fallback logic is now in index.html head for maximum reliability
+    // 0. Preloader Automation 2.0 (Clean Version)
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.classList.add('loaded');
+                document.body.style.overflow = '';
+            }, 1200); // Branding presence delay
+        });
+        
+        // Safety fallback
+        setTimeout(() => {
+            if (!preloader.classList.contains('loaded')) {
+                preloader.classList.add('loaded');
+                document.body.style.overflow = '';
+            }
+        }, 4000);
+    }
 
     // 0.1 Mobile Menu Toggle Logic
     const mobileBtn = document.getElementById('mobile-toggle');
@@ -129,42 +146,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Intersection Observer for Animations (Safe Version)
-    const animElements = document.querySelectorAll('.feature-card, .pricing-card, .service-card, .section-title, .promo-banner-section, .trust-card, .best-seller-card, .deal-card');
-    
-    if (window.IntersectionObserver) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    // Intersection Observer for Animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    };
 
-        if (window.innerWidth > 768) {
-            animElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-                observer.observe(el);
-            });
-        } else {
-            animElements.forEach(el => el.classList.add('visible'));
-        }
-    } else {
-        animElements.forEach(el => el.classList.add('visible'));
-    }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.feature-card, .pricing-card, .service-card, .section-title, .promo-banner-section').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        observer.observe(el);
+    });
 
     // Add visible class styling dynamically
-    const revealStyle = document.createElement('style');
-    revealStyle.innerHTML = `
+    const style = document.createElement('style');
+    style.innerHTML = `
         .visible {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
     `;
-    document.head.appendChild(revealStyle);
+    document.head.appendChild(style);
     // Text Slideshow
     const textSlides = document.querySelectorAll('.text-slide');
     if (textSlides.length > 0) {
@@ -656,65 +668,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile Bottom Nav Active State & Scroll Spy
+    // Mobile Bottom Nav Active State
     const bottomNavItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
-    const sections = ['#', '#other-services', '#pricing']; // Corresponding IDs
-
-    const updateActiveNavItem = () => {
-        if (window.innerWidth > 768) return;
-
-        let current = "";
-        const scrollPos = window.scrollY + 100;
-
-        // Special case for top of page
-        if (scrollPos < 300) {
-            current = "#";
-        } else {
-            sections.forEach(id => {
-                const section = document.querySelector(id === "#" ? "body" : id);
-                if (section) {
-                    const top = section.offsetTop;
-                    if (scrollPos >= top) {
-                        current = id;
-                    }
-                }
-            });
-        }
-
-        // Reviews check (if on reviews.html, it stays active)
-        if (window.location.pathname.includes('reviews.html')) {
-            current = "reviews.html";
-        }
-
-        bottomNavItems.forEach(item => {
-            const href = item.getAttribute('href');
-            item.classList.remove('active');
-            if (href === current || (current === "#" && href === "#")) {
-                item.classList.add('active');
-            }
-        });
-    };
-
-    window.addEventListener('scroll', updateActiveNavItem);
-    
     bottomNavItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            // Haptic feedback simulation
-            item.style.transform = 'scale(0.9)';
-            setTimeout(() => item.style.transform = '', 100);
-
-            if (!item.classList.contains('cart-trigger')) {
-                bottomNavItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-            }
+        item.addEventListener('click', () => {
+            bottomNavItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
         });
     });
 
     // Update Cart Count in Bottom Nav
     window.addEventListener('updateCartCount', (e) => {
         const count = e.detail.count;
-        const miniCounts = document.querySelectorAll('.cart-count-mini');
-        miniCounts.forEach(el => el.textContent = count);
+        const miniCount = document.querySelector('.cart-count-mini');
+        if (miniCount) miniCount.textContent = count;
     });
 
 
@@ -901,12 +868,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const interactiveEls = document.querySelectorAll('a, button, .pricing-card, .best-seller-card, .nav-item');
     interactiveEls.forEach(el => {
         el.addEventListener('mouseenter', () => {
-            if (cursorDot) cursorDot.classList.add('active');
-            if (cursorOutline) cursorOutline.classList.add('active');
+            cursorDot.classList.add('active');
+            cursorOutline.classList.add('active');
         });
         el.addEventListener('mouseleave', () => {
-            if (cursorDot) cursorDot.classList.remove('active');
-            if (cursorOutline) cursorOutline.classList.remove('active');
+            cursorDot.classList.remove('active');
+            cursorOutline.classList.remove('active');
         });
     });
 });
