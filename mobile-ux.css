@@ -9,6 +9,11 @@
 }
 
 @media (max-width: 768px) {
+    /* Fix Body/Preloader for Mobile */
+    html {
+        background-color: var(--app-bg);
+    }
+
     body {
         background-color: var(--app-bg) !important;
         padding-bottom: calc(var(--nav-height) + 20px) !important;
@@ -16,19 +21,41 @@
         -webkit-user-select: none;
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
+        opacity: 1 !important; /* Force visible */
+        visibility: visible !important;
+    }
+
+    /* Pull indicator removed or styled carefully */
+    body::before {
+        display: none;
+    }
+
+    #preloader {
+        background: #0A0A0A !important;
+        z-index: 1000000 !important;
+        transition: opacity 0.4s ease, visibility 0.4s ease !important;
+    }
+
+    #preloader.loaded {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        display: none !important;
     }
 
     /* App-like Header (Top Bar) */
     .navbar {
         height: 60px !important;
-        background: rgba(10, 10, 10, 0.8) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
+        background: #0A0A0A !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-        position: sticky !important;
+        position: fixed !important;
         top: 0 !important;
-        z-index: 1000 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 10000 !important;
         padding: 0 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
     .nav-links, .nav-actions .nav-icon:not(.cart-trigger), .nav-search-wrapper {
@@ -238,6 +265,31 @@
         font-size: 0.8rem;
         color: var(--app-text-dim);
     }
+    /* Force visibility on all animated elements for mobile */
+    .hero-content, .hero-visual, .feature-card, .pricing-card, 
+    .service-card, .section-title, .promo-banner-section, 
+    .trust-card, .best-seller-card, .deal-card, .reveal, 
+    .about-section, .stat-card, .footer-content, [style*="opacity: 0"] {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    /* Ensure basic sections are shown */
+    section, header, footer {
+        display: block !important;
+    }
+
+    /* Layout overrides for grid/flex containers */
+    .hero { display: flex !important; flex-direction: column !important; }
+    .best-sellers-grid, .trust-cards-grid, .steps-grid, .stats-grid, .pricing-grid { 
+        display: grid !important; 
+    }
+
+    /* Hide redundant desktop items */
+    .background-glow, .background-glow-2, .cursor-dot, .cursor-outline, .top-trust-bar, .floating-icons {
+        display: none !important;
+    }
 }
 
 /* Custom Nav SVGs Styles */
@@ -249,4 +301,4 @@
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-}
+}

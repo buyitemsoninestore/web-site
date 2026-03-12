@@ -4,20 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // 0. Preloader Automation 2.0 (Clean Version)
     const preloader = document.getElementById('preloader');
     if (preloader) {
+        const hidePreloader = () => {
+            preloader.classList.add('loaded');
+            document.body.style.overflow = 'visible';
+            document.body.style.opacity = '1';
+        };
+
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                preloader.classList.add('loaded');
-                document.body.style.overflow = '';
-            }, 1200); // Branding presence delay
+            setTimeout(hidePreloader, 800); 
         });
         
-        // Safety fallback
+        // Safety fallback - 2s for mobile
         setTimeout(() => {
-            if (!preloader.classList.contains('loaded')) {
-                preloader.classList.add('loaded');
-                document.body.style.overflow = '';
-            }
-        }, 4000);
+            if (!preloader.classList.contains('loaded')) hidePreloader();
+        }, 2000);
     }
 
     // 0.1 Mobile Menu Toggle Logic
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Intersection Observer for Animations
+    // Intersection Observer for Animations (Desktop Only for stability)
     const observerOptions = {
         threshold: 0.1,
         rootMargin: "0px 0px -50px 0px"
@@ -161,22 +161,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.feature-card, .pricing-card, .service-card, .section-title, .promo-banner-section').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        observer.observe(el);
-    });
+    const animElements = document.querySelectorAll('.feature-card, .pricing-card, .service-card, .section-title, .promo-banner-section, .trust-card, .best-seller-card, .deal-card');
+    
+    if (window.innerWidth > 768) {
+        animElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+    } else {
+        // Force visible on mobile immediately
+        animElements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            el.classList.add('visible');
+        });
+    }
 
     // Add visible class styling dynamically
-    const style = document.createElement('style');
-    style.innerHTML = `
+    const revealStyle = document.createElement('style');
+    revealStyle.innerHTML = `
         .visible {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
     `;
-    document.head.appendChild(style);
+    document.head.appendChild(revealStyle);
     // Text Slideshow
     const textSlides = document.querySelectorAll('.text-slide');
     if (textSlides.length > 0) {
