@@ -90,29 +90,37 @@
 /* Responsive banner adjustments */
 @media (max-width: 768px) {
     .top-site-banner {
-        margin-top: 65px;
-        /* Keep consistent with desktop */
+        /* notification bar 38px + navbar 56px = 94px */
+        margin-top: 94px !important;
     }
 
     .banner-img {
-        border-radius: 0 0 15px 15px;
-        max-height: none;
-        /* Allow full banner height */
+        border-radius: 0 0 12px 12px;
+        height: 130px;
+        object-fit: cover;
         width: 100%;
     }
 }
 
 @media (max-width: 480px) {
     .top-site-banner {
-        margin-top: 0;
-        height: auto;
+        margin-top: 94px !important;
     }
 
     .banner-img {
-        border-radius: 0;
-        width: 100%;
+        border-radius: 0 0 10px 10px;
+        height: 110px;
         object-fit: cover;
-        height: 120px;
+    }
+}
+
+@media (max-width: 360px) {
+    .top-site-banner {
+        margin-top: 94px !important;
+    }
+
+    .banner-img {
+        height: 90px;
     }
 }
 
@@ -1612,7 +1620,8 @@ h3 {
     text-transform: uppercase;
     letter-spacing: 1px;
     line-height: 1.2;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
 }
 
 .massive-no {
