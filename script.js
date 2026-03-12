@@ -668,20 +668,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile Bottom Nav Active State
+    // Mobile Bottom Nav Active State & Scroll Spy
     const bottomNavItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
+    const sections = ['#', '#other-services', '#pricing']; // Corresponding IDs
+
+    const updateActiveNavItem = () => {
+        if (window.innerWidth > 768) return;
+
+        let current = "";
+        const scrollPos = window.scrollY + 100;
+
+        // Special case for top of page
+        if (scrollPos < 300) {
+            current = "#";
+        } else {
+            sections.forEach(id => {
+                const section = document.querySelector(id === "#" ? "body" : id);
+                if (section) {
+                    const top = section.offsetTop;
+                    if (scrollPos >= top) {
+                        current = id;
+                    }
+                }
+            });
+        }
+
+        // Reviews check (if on reviews.html, it stays active)
+        if (window.location.pathname.includes('reviews.html')) {
+            current = "reviews.html";
+        }
+
+        bottomNavItems.forEach(item => {
+            const href = item.getAttribute('href');
+            item.classList.remove('active');
+            if (href === current || (current === "#" && href === "#")) {
+                item.classList.add('active');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', updateActiveNavItem);
+    
     bottomNavItems.forEach(item => {
-        item.addEventListener('click', () => {
-            bottomNavItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
+        item.addEventListener('click', (e) => {
+            // Haptic feedback simulation
+            item.style.transform = 'scale(0.9)';
+            setTimeout(() => item.style.transform = '', 100);
+
+            if (!item.classList.contains('cart-trigger')) {
+                bottomNavItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            }
         });
     });
 
     // Update Cart Count in Bottom Nav
     window.addEventListener('updateCartCount', (e) => {
         const count = e.detail.count;
-        const miniCount = document.querySelector('.cart-count-mini');
-        if (miniCount) miniCount.textContent = count;
+        const miniCounts = document.querySelectorAll('.cart-count-mini');
+        miniCounts.forEach(el => el.textContent = count);
     });
 
 

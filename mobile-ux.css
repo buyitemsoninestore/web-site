@@ -1,164 +1,252 @@
 /* --- PREMIUM MOBILE APP-LIKE UI --- */
-.mobile-bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 65px;
-    background: rgba(15, 15, 15, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    display: none;
-    /* Hidden on desktop */
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    z-index: 9999;
-    padding-bottom: env(safe-area-inset-bottom);
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.mobile-bottom-nav .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.65rem;
-    font-weight: 600;
-    gap: 4px;
-    transition: all 0.3s ease;
-    flex: 1;
-}
-
-.mobile-bottom-nav .nav-item.active {
-    color: var(--primary-red);
-}
-
-.nav-icon-box {
-    font-size: 1.3rem;
-    position: relative;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.nav-item.active .nav-icon-box {
-    transform: translateY(-5px) scale(1.1);
-}
-
-.cart-count-mini {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background: var(--primary-red);
-    color: white;
-    font-size: 0.6rem;
-    padding: 2px 5px;
-    border-radius: 50px;
-    font-weight: 800;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+:root {
+    --app-bg: #0A0A0A;
+    --app-surface: #121212;
+    --app-accent: #FF0000;
+    --app-text: #FFFFFF;
+    --app-text-dim: rgba(255, 255, 255, 0.6);
+    --nav-height: 65px;
 }
 
 @media (max-width: 768px) {
-    .mobile-bottom-nav {
-        display: flex;
-    }
-
     body {
-        padding-bottom: 70px !important;
+        background-color: var(--app-bg) !important;
+        padding-bottom: calc(var(--nav-height) + 20px) !important;
         user-select: none;
         -webkit-user-select: none;
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
     }
 
-    /* Allow selection only in inputs */
-    input,
-    textarea {
-        user-select: text !important;
-        -webkit-user-select: text !important;
-    }
-
-    /* Floating Button Adjustment */
-    .chatbot-wrapper {
-        bottom: 85px !important;
-    }
-
-    #scroll-top {
-        bottom: 160px !important;
-    }
-
+    /* App-like Header (Top Bar) */
     .navbar {
-        height: 60px;
-        background: rgba(10, 10, 10, 0.98) !important;
-        position: sticky;
-        top: 40px;
+        height: 60px !important;
+        background: rgba(10, 10, 10, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+        padding: 0 15px !important;
+    }
+
+    .nav-links, .nav-actions .nav-icon:not(.cart-trigger), .nav-search-wrapper {
+        display: none !important;
+    }
+
+    .mobile-menu-btn {
+        display: none !important;
+    }
+
+    .nav-content {
+        justify-content: center !important;
+        position: relative;
     }
 
     .logo {
-        font-size: 1.1rem;
+        transform: scale(0.9);
     }
 
-    /* Hide some desktop-only visual elements for speed */
-    .f-icon,
-    .f-text {
+    .top-notification-bar {
         display: none !important;
     }
-}
 
-/* App Splash Loader */
-#app-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #0F0F0F;
-    z-index: 10000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.5s ease;
-}
-
-.loader-logo {
-    width: 80px;
-    height: 80px;
-    background: #FF0000;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    color: white;
-    font-weight: 800;
-    margin-bottom: 20px;
-    animation: pulseLoader 2s infinite;
-}
-
-.loader-text {
-    color: white;
-    font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.8;
-}
-
-@keyframes pulseLoader {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4);
+    /* Hide redundant desktop items */
+    .top-trust-bar, .floating-icons, .background-glow, .background-glow-2 {
+        display: none !important;
     }
 
-    70% {
-        transform: scale(1.1);
-        box-shadow: 0 0 0 20px rgba(255, 0, 0, 0);
+    /* App Cards Styling */
+    .glass-card {
+        background: var(--app-surface) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-radius: 20px !important;
+        margin-bottom: 15px !important;
     }
 
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    .section-title {
+        font-size: 1.5rem !important;
+        text-align: left !important;
+        margin-left: 15px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .section-title::after {
+        left: 15px !important;
+        transform: none !important;
+    }
+
+    /* Premium Bottom Navigation */
+    .mobile-bottom-nav {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: var(--nav-height);
+        background: rgba(15, 15, 15, 0.9);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 9999;
+        padding-bottom: env(safe-area-inset-bottom);
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .mobile-bottom-nav .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--app-text-dim);
+        text-decoration: none;
+        font-size: 0.7rem;
+        font-weight: 500;
+        gap: 5px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        flex: 1;
+        position: relative;
+    }
+
+    .mobile-bottom-nav .nav-item.active {
+        color: var(--app-accent);
+    }
+
+    .nav-icon-box {
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        width: 30px;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-item.active .nav-icon-box {
+        transform: translateY(-2px);
+    }
+
+    /* Active Indicator Dot */
+    .nav-item.active::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        width: 4px;
+        height: 4px;
+        background: var(--app-accent);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--app-accent);
+    }
+
+    /* Cart Mini Badge */
+    .cart-count-mini {
+        position: absolute;
+        top: -4px;
+        right: -8px;
+        background: var(--app-accent);
+        color: white;
+        font-size: 0.6rem;
+        min-width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-weight: 700;
+        border: 2px solid #0F0F0F;
+    }
+
+    /* Modern App Loader/Splash */
+    #preloader {
+        background: var(--app-bg) !important;
+    }
+
+    .loader-logo-inner {
+        font-size: 1.5rem !important;
+    }
+
+    /* Floating CTA for Mobile */
+    .wa-float {
+        bottom: 85px !important;
+        right: 20px !important;
+        width: 55px !important;
+        height: 55px !important;
+        border-radius: 18px !important;
+        box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3) !important;
+    }
+
+    /* Tighter Grids */
+    .best-sellers-grid, .trust-cards-grid, .steps-grid, .stats-grid {
+        grid-template-columns: 1fr !important;
+        padding: 0 15px !important;
+        gap: 15px !important;
+    }
+
+    .hero {
+        padding-top: 20px !important;
+        text-align: center;
+    }
+
+    .hero-super-title {
+        font-size: 1.8rem !important;
+    }
+
+    .hero-badges-row {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+
+    .hero-visual {
+        display: none !important;
+    }
+
+    /* Category Swiper-like feel for icons */
+    .product-icons-container {
+        padding: 10px 15px !important;
+        overflow-x: auto !important;
+        display: flex !important;
+        gap: 15px !important;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .product-icons-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .product-icon-item {
+        min-width: 75px !important;
+        scroll-snap-align: center;
+    }
+
+    .product-icon-circle {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 18px !important;
+    }
+
+    /* Pull to refresh simulation area */
+    body::before {
+        content: 'Pull to refresh';
+        position: absolute;
+        top: -50px;
+        width: 100%;
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--app-text-dim);
     }
 }
+
+/* Custom Nav SVGs Styles */
+.nav-svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
