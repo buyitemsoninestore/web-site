@@ -96,7 +96,7 @@
 
     /* ---- Body ---- */
     html, body {
-        font-size: 12px !important;
+        font-size: 14px !important;
     }
     body {
         padding-bottom: 75px !important;
@@ -367,9 +367,9 @@
     
     /* Child element (needs to act as a card) */
     .best-sellers-grid > * {
-        flex: 0 0 45% !important;
+        flex: 0 0 75% !important;
         scroll-snap-align: center;
-        padding: 0.6rem 0.5rem !important;
+        padding: 1rem 0.8rem !important;
     }
 
     /* ============================================================
@@ -390,9 +390,9 @@
     .trust-cards-grid::-webkit-scrollbar { display: none; }
     
     .trust-card { 
-        flex: 0 0 45% !important;
+        flex: 0 0 75% !important;
         scroll-snap-align: center;
-        padding: 0.6rem 0.5rem !important; 
+        padding: 1rem 0.8rem !important; 
     }
 
     /* ============================================================
@@ -413,9 +413,9 @@
     .deals-grid::-webkit-scrollbar { display: none; }
 
     .deals-grid > * {
-        flex: 0 0 50% !important;
+        flex: 0 0 80% !important;
         scroll-snap-align: center;
-        padding: 0.6rem 0.5rem !important;
+        padding: 1rem 0.8rem !important;
     }
 
     .deal-timer { width: 100%; justify-content: center; }
@@ -438,9 +438,9 @@
     .steps-grid::-webkit-scrollbar { display: none; }
     
     .step-card { 
-        flex: 0 0 45% !important;
+        flex: 0 0 75% !important;
         scroll-snap-align: center;
-        padding: 0.6rem 0.5rem !important; 
+        padding: 1rem 0.8rem !important; 
     }
 
     /* ============================================================
@@ -460,9 +460,9 @@
     .stats-grid::-webkit-scrollbar { display: none; }
     
     .stat-card { 
-        flex: 0 0 42% !important;
+        flex: 0 0 65% !important;
         scroll-snap-align: center;
-        padding: 0.6rem 0.5rem !important; 
+        padding: 1rem 0.8rem !important; 
     }
 
     /* ============================================================
@@ -481,11 +481,11 @@
     .pricing-grid::-webkit-scrollbar { display: none; }
     
     .pricing-card {
-        flex: 0 0 55% !important;
+        flex: 0 0 85% !important;
         scroll-snap-align: center;
         height: auto !important;
         display: flex !important;
-        padding: 0.8rem 0.6rem !important;
+        padding: 1.2rem 1rem !important;
     }
     
     .pricing-card.featured { transform: scale(1) !important; }
@@ -506,9 +506,9 @@
     .services-grid::-webkit-scrollbar { display: none; }
     
     .service-card {
-        flex: 0 0 45% !important;
+        flex: 0 0 75% !important;
         scroll-snap-align: center;
-        padding: 0.6rem 0.5rem !important;
+        padding: 1rem 0.8rem !important;
     }
 
     /* ============================================================
@@ -526,8 +526,9 @@
     .trust-card h3,
     .step-card h3,
     .stat-card h3 {
-        font-size: 0.8rem !important;
-        margin-bottom: 0.2rem !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 0.4rem !important;
+        white-space: normal !important;
     }
 
     .best-sellers-grid > div p,
@@ -538,30 +539,32 @@
     .trust-card p,
     .step-card p,
     .stat-card p {
-        font-size: 0.6rem !important;
-        line-height: 1.1 !important;
-        margin-bottom: 0.2rem !important;
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 0.4rem !important;
+        white-space: normal !important;
+        word-break: break-word;
     }
 
-    .pricing-card .price { font-size: 1rem !important; margin-bottom: 0.3rem !important; }
-    .pricing-card .price span { font-size: 0.55rem !important; }
+    .pricing-card .price { font-size: 1.4rem !important; margin-bottom: 0.6rem !important; }
+    .pricing-card .price span { font-size: 0.8rem !important; }
     
-    .pricing-card ul { padding-left: 10px !important; margin-bottom: 0.5rem !important; }
-    .pricing-card ul li { padding: 2px 0 !important; }
+    .pricing-card ul { padding-left: 15px !important; margin-bottom: 0.8rem !important; }
+    .pricing-card ul li { padding: 4px 0 !important; }
 
     .icon-wrapper, .step-icon, .stat-icon svg, .service-icon img, .service-icon svg {
-        font-size: 1.2rem !important;
-        width: 25px !important;
-        height: 25px !important;
-        margin-bottom: 0.3rem !important;
+        font-size: 1.6rem !important;
+        width: 40px !important;
+        height: 40px !important;
+        margin-bottom: 0.6rem !important;
     }
     
-    .stat-number { font-size: 1.2rem !important; }
-    .step-number { font-size: 0.6rem !important; width: 18px !important; height: 18px !important; }
+    .stat-number { font-size: 1.8rem !important; }
+    .step-number { font-size: 0.8rem !important; width: 24px !important; height: 24px !important; }
 
     .btn-primary, .btn-secondary, .add-to-cart-btn {
-        padding: 0.4rem 0.6rem !important;
-        font-size: 0.65rem !important;
+        padding: 0.6rem 1rem !important;
+        font-size: 0.85rem !important;
     }
 
     /* ============================================================
