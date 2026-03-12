@@ -129,37 +129,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Intersection Observer for Animations (Desktop Only for stability)
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
+    // Intersection Observer for Animations (Safe Version)
     const animElements = document.querySelectorAll('.feature-card, .pricing-card, .service-card, .section-title, .promo-banner-section, .trust-card, .best-seller-card, .deal-card');
     
-    if (window.innerWidth > 768) {
-        animElements.forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-            observer.observe(el);
-        });
+    if (window.IntersectionObserver) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        if (window.innerWidth > 768) {
+            animElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(el);
+            });
+        } else {
+            animElements.forEach(el => el.classList.add('visible'));
+        }
     } else {
-        // Force visible on mobile immediately
-        animElements.forEach(el => {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-            el.classList.add('visible');
-        });
+        animElements.forEach(el => el.classList.add('visible'));
     }
 
     // Add visible class styling dynamically
@@ -907,12 +901,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const interactiveEls = document.querySelectorAll('a, button, .pricing-card, .best-seller-card, .nav-item');
     interactiveEls.forEach(el => {
         el.addEventListener('mouseenter', () => {
-            cursorDot.classList.add('active');
-            cursorOutline.classList.add('active');
+            if (cursorDot) cursorDot.classList.add('active');
+            if (cursorOutline) cursorOutline.classList.add('active');
         });
         el.addEventListener('mouseleave', () => {
-            cursorDot.classList.remove('active');
-            cursorOutline.classList.remove('active');
+            if (cursorDot) cursorDot.classList.remove('active');
+            if (cursorOutline) cursorOutline.classList.remove('active');
         });
     });
 });

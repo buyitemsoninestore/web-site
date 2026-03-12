@@ -2,7 +2,7 @@
   "name": "BuyItemsOnline.lk",
   "short_name": "BuyItems",
   "description": "Premium YouTube, Netflix & Spotify Subscriptions in Sri Lanka",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0F0F0F",
   "theme_color": "#FF0000",
