@@ -364,8 +364,9 @@
     
     /* Child element (needs to act as a card) */
     .best-sellers-grid > * {
-        flex: 0 0 70% !important;
+        flex: 0 0 55% !important;
         scroll-snap-align: center;
+        padding: 0.8rem 0.6rem !important;
     }
 
     /* ============================================================
@@ -386,9 +387,9 @@
     .trust-cards-grid::-webkit-scrollbar { display: none; }
     
     .trust-card { 
-        flex: 0 0 70% !important;
+        flex: 0 0 55% !important;
         scroll-snap-align: center;
-        padding: 1rem 0.6rem !important; 
+        padding: 0.8rem 0.6rem !important; 
     }
 
     /* ============================================================
@@ -409,8 +410,9 @@
     .deals-grid::-webkit-scrollbar { display: none; }
 
     .deals-grid > * {
-        flex: 0 0 75% !important;
+        flex: 0 0 60% !important;
         scroll-snap-align: center;
+        padding: 0.8rem 0.6rem !important;
     }
 
     .deal-timer { width: 100%; justify-content: center; }
@@ -433,9 +435,9 @@
     .steps-grid::-webkit-scrollbar { display: none; }
     
     .step-card { 
-        flex: 0 0 70% !important;
+        flex: 0 0 55% !important;
         scroll-snap-align: center;
-        padding: 1rem 0.6rem !important; 
+        padding: 0.8rem 0.6rem !important; 
     }
 
     /* ============================================================
@@ -455,9 +457,9 @@
     .stats-grid::-webkit-scrollbar { display: none; }
     
     .stat-card { 
-        flex: 0 0 65% !important;
+        flex: 0 0 50% !important;
         scroll-snap-align: center;
-        padding: 1rem 0.6rem !important; 
+        padding: 0.8rem 0.6rem !important; 
     }
 
     /* ============================================================
@@ -476,10 +478,11 @@
     .pricing-grid::-webkit-scrollbar { display: none; }
     
     .pricing-card {
-        flex: 0 0 75% !important;
+        flex: 0 0 65% !important;
         scroll-snap-align: center;
         height: auto !important;
         display: flex !important;
+        padding: 1rem 0.8rem !important;
     }
     
     .pricing-card.featured { transform: scale(1) !important; }
@@ -500,15 +503,60 @@
     .services-grid::-webkit-scrollbar { display: none; }
     
     .service-card {
-        flex: 0 0 65% !important;
+        flex: 0 0 55% !important;
         scroll-snap-align: center;
-        padding: 1rem 0.6rem !important;
+        padding: 0.8rem 0.6rem !important;
     }
 
     /* ============================================================
        SECTION TITLES
        ============================================================ */
     .section-title { font-size: 1.2rem !important; margin-bottom: 0.8rem !important; }
+
+    /* ============================================================
+       CARD INTERNAL SIZE REDUCTIONS (MAKE BOXES SMALLER)
+       ============================================================ */
+    .best-sellers-grid > div h3,
+    .deals-grid > div h3,
+    .pricing-card h3,
+    .service-card h3,
+    .trust-card h3,
+    .step-card h3,
+    .stat-card h3 {
+        font-size: 0.85rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    .best-sellers-grid > div p,
+    .deals-grid > div p,
+    .pricing-card p,
+    .pricing-card ul li,
+    .service-card p,
+    .trust-card p,
+    .step-card p,
+    .stat-card p {
+        font-size: 0.68rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    .pricing-card .price { font-size: 1.2rem !important; margin-bottom: 0.4rem !important; }
+    .pricing-card .price span { font-size: 0.65rem !important; }
+    
+    .icon-wrapper, .step-icon, .stat-icon svg, .service-icon img, .service-icon svg {
+        font-size: 1.4rem !important;
+        width: 35px !important;
+        height: 35px !important;
+        margin-bottom: 0.4rem !important;
+    }
+    
+    .stat-number { font-size: 1.6rem !important; }
+    .step-number { font-size: 0.7rem !important; width: 22px !important; height: 22px !important; }
+
+    .btn-primary, .btn-secondary, .add-to-cart-btn {
+        padding: 0.5rem 0.8rem !important;
+        font-size: 0.7rem !important;
+    }
 
     /* ============================================================
        CHATBOT, SCROLL, FLOATING BUTTONS
