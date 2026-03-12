@@ -1,9 +1,9 @@
 /* ==========================================================================
    MOBILE RESPONSIVE CSS - BuyItems.lk
-   Optimized for phones: 320px - 768px
+   Complete rewrite with sticky positioning for mobile
    ========================================================================== */
 
-/* --- PREMIUM MOBILE APP-LIKE UI --- */
+/* ===================== MOBILE BOTTOM NAV ===================== */
 .mobile-bottom-nav {
     position: fixed;
     bottom: 0;
@@ -36,9 +36,7 @@
     flex: 1;
 }
 
-.mobile-bottom-nav .nav-item.active {
-    color: var(--primary-red);
-}
+.mobile-bottom-nav .nav-item.active { color: var(--primary-red); }
 
 .nav-icon-box {
     font-size: 1.3rem;
@@ -46,9 +44,7 @@
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.nav-item.active .nav-icon-box {
-    transform: translateY(-5px) scale(1.1);
-}
+.nav-item.active .nav-icon-box { transform: translateY(-5px) scale(1.1); }
 
 .cart-count-mini {
     position: absolute;
@@ -63,162 +59,48 @@
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
-/* App Splash Loader */
+/* ===================== APP SPLASH LOADER ===================== */
 #app-loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #0F0F0F;
-    z-index: 10000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #0F0F0F; z-index: 10000;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
     transition: opacity 0.5s ease;
 }
-
 .loader-logo {
-    width: 80px;
-    height: 80px;
-    background: #FF0000;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    color: white;
-    font-weight: 800;
-    margin-bottom: 20px;
-    animation: pulseLoader 2s infinite;
+    width: 80px; height: 80px;
+    background: #FF0000; border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; color: white; font-weight: 800;
+    margin-bottom: 20px; animation: pulseLoader 2s infinite;
 }
-
 .loader-text {
-    color: white;
-    font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.8;
+    color: white; font-weight: 600; font-size: 0.8rem;
+    letter-spacing: 3px; text-transform: uppercase; opacity: 0.8;
 }
-
 @keyframes pulseLoader {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+    0%   { transform: scale(1);   box-shadow: 0 0 0 0   rgba(255,0,0,0.4); }
+    70%  { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(255,0,0,0);   }
+    100% { transform: scale(1);   box-shadow: 0 0 0 0   rgba(255,0,0,0);   }
 }
 
 
 /* ==========================================================================
-   TABLET (992px ↓)
-   ========================================================================== */
-@media (max-width: 992px) {
-
-    /* Hero */
-    .hero-content {
-        grid-template-columns: 1fr !important;
-        text-align: center;
-        gap: 2rem;
-    }
-
-    .hero-text {
-        order: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .hero-visual {
-        order: 1;
-        max-width: 420px;
-        height: 280px !important;
-        margin: 0 auto;
-    }
-
-    .hero-text p {
-        margin: 0 auto 1.5rem;
-    }
-
-    .hero-badges-row {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .trust-indicators {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-    }
-
-    .trust-seals-row {
-        justify-content: center;
-    }
-
-    /* Video section */
-    .video-promo-wrapper {
-        grid-template-columns: 1fr !important;
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .youtube-player-frame {
-        max-width: 100% !important;
-        width: 100%;
-    }
-
-    .promo-gif {
-        max-width: 90%;
-    }
-
-    /* About */
-    .about-grid {
-        grid-template-columns: 1fr !important;
-        gap: 2.5rem;
-    }
-
-    .about-visual {
-        max-width: 350px;
-        margin: 0 auto;
-    }
-
-    /* Best sellers */
-    .best-sellers-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-
-    /* Deals */
-    .deals-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Footer */
-    .footer-grid {
-        grid-template-columns: 1fr 1fr !important;
-    }
-}
-
-
-/* ==========================================================================
-   MOBILE (768px ↓)
+   MOBILE (768px and below) - MAIN STYLES
    ========================================================================== */
 @media (max-width: 768px) {
 
-    /* ---- Show mobile bottom nav ---- */
-    .mobile-bottom-nav {
-        display: flex;
-    }
+    /* ---- Show bottom nav ---- */
+    .mobile-bottom-nav { display: flex; }
 
     /* ---- Body ---- */
     body {
         padding-bottom: 75px !important;
-        user-select: none;
-        -webkit-user-select: none;
+        overflow-x: hidden !important;
+        max-width: 100% !important;
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation;
-        overflow-x: hidden !important;
     }
 
     input, textarea {
@@ -226,492 +108,385 @@
         -webkit-user-select: text !important;
     }
 
-    /* ---- Floating icons hide ---- */
-    .f-icon, .f-text {
-        display: none !important;
-    }
+    /* ---- Hide floating decorations ---- */
+    .f-icon, .f-text { display: none !important; }
 
-    /* ---- Notification bar ---- */
+    /* ================================================================
+       NOTIFICATION BAR + NAVBAR = STICKY APPROACH
+       Sticky elements don't overlap content, no margin-top needed
+       ================================================================ */
     .top-notification-bar {
-        height: 38px;
-        padding: 0 10px;
+        position: sticky !important;
+        top: 0 !important;
+        height: 40px !important;
+        padding: 0 10px !important;
+        z-index: 10001 !important;
     }
 
-    .top-bar-actions {
-        gap: 8px;
-        padding-left: 10px;
-    }
+    .top-bar-actions { gap: 6px; padding-left: 8px; }
+    .visitor-counter-top { display: none; }
+    .top-bar-divider { display: none; }
+    .service-status-pill { padding: 2px 8px; }
+    .status-text { font-size: 0.6rem; }
+    .ticker-item { font-size: 0.72rem; padding: 0 10px; }
 
-    .visitor-counter-top {
-        display: none;
-    }
-
-    .top-bar-divider {
-        display: none;
-    }
-
-    .service-status-pill {
-        padding: 3px 8px;
-    }
-
-    .status-text {
-        font-size: 0.62rem;
-    }
-
-    /* ---- Navbar ---- */
     .navbar {
-        top: 38px;
+        position: sticky !important;
+        top: 40px !important;
         height: 56px !important;
-        background: rgba(10, 10, 10, 0.98) !important;
+        background: rgba(10, 10, 10, 0.99) !important;
+        z-index: 10000 !important;
     }
 
-    .logo {
-        font-size: 1rem !important;
-    }
-
-    .logo-icon {
-        width: 32px !important;
-        height: 32px !important;
-    }
-
-    .nav-links {
-        display: none;
-        position: fixed;
-        top: 94px;
-        left: 0;
-        width: 100%;
-        background: rgba(10, 10, 10, 0.99);
-        flex-direction: column;
-        padding: 1.5rem;
-        gap: 1.2rem;
-        margin: 0;
-        z-index: 999;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .mobile-menu-btn {
-        display: flex;
-    }
-
-    .nav-search-wrapper {
-        display: none !important;
-    }
-
-    /* ---- Top banner ---- */
+    /* ---- Banner: no margin offset needed with sticky ---- */
     .top-site-banner {
-        margin-top: calc(38px + 56px) !important;
+        margin-top: 0 !important;
     }
 
     .banner-img {
-        height: 130px;
+        height: 140px !important;
         object-fit: cover;
         border-radius: 0 0 12px 12px;
+        width: 100%;
     }
+
+    /* ---- Logo ---- */
+    .logo { font-size: 1rem !important; }
+    .logo-icon { width: 30px !important; height: 30px !important; }
+
+    /* ---- Nav links (mobile dropdown) ---- */
+    .nav-links {
+        display: none;
+        position: fixed !important;
+        top: 96px;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        background: rgba(10, 10, 10, 0.99);
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        margin: 0;
+        z-index: 9998;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .nav-links.active { display: flex; }
+    .nav-links a { font-size: 1.1rem; padding: 0.5rem 0; display: block; }
+    .mobile-menu-btn { display: flex; }
+    .nav-search-wrapper { display: none !important; }
+    .nav-actions { gap: 0.5rem !important; margin-left: auto; }
 
     /* ---- Trust bar ---- */
-    .trust-bar-content {
-        justify-content: center;
-        gap: 0.8rem;
-    }
+    .trust-bar-content { justify-content: center; gap: 0.7rem; }
+    .trust-item { font-size: 0.72rem; }
+    .trust-card-pill { display: none; }
 
-    .trust-item {
-        font-size: 0.75rem;
-    }
-
-    .trust-card-pill {
-        margin-top: 0.3rem;
-    }
-
-    /* ---- Hero ---- */
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
     .hero {
-        padding: 1.5rem 0 !important;
+        padding: 1.5rem 0 1rem !important;
         min-height: auto !important;
     }
 
+    .hero-content {
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+        gap: 1.5rem;
+    }
+
+    .hero-text {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-visual { display: none !important; }
+
     .hero-super-title {
-        font-size: 1rem !important;
+        font-size: 0.9rem !important;
         white-space: normal !important;
+        word-break: break-word;
         text-align: center;
+        letter-spacing: 0.5px;
     }
 
     .massive-no {
-        font-size: 3.5rem !important;
+        font-size: 3.2rem !important;
         letter-spacing: -1px;
-    }
-
-    .hero-visual {
-        display: none !important;
+        display: block;
     }
 
     .hero-warning-box {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
         padding: 0.6rem 0.9rem;
         width: 100%;
+        text-align: left;
     }
 
     .hero-badges-row {
-        gap: 0.5rem;
-        margin-bottom: 1rem;
+        gap: 0.4rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 0.8rem;
     }
 
     .badge {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.7rem;
+        font-size: 0.72rem;
+        padding: 0.25rem 0.6rem;
+        margin-bottom: 0.3rem;
     }
+
+    .hero-text-slider { min-height: 110px; }
+    .text-slide h2 { font-size: 1.4rem !important; }
+    .text-slide p { font-size: 0.9rem !important; }
 
     .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-        gap: 0.7rem;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.6rem !important;
     }
-
     .hero-buttons .btn-primary,
     .hero-buttons .btn-secondary {
-        width: 100%;
-        text-align: center;
+        width: 100% !important;
+        text-align: center !important;
+        padding: 0.8rem 1rem !important;
     }
 
     .trust-seals-row {
         display: grid !important;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.8rem;
-        width: 100%;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem !important;
+        margin-top: 1rem !important;
+        padding: 1rem !important;
     }
 
-    .seal-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 0.3rem;
-    }
+    .seal-item { flex-direction: column; align-items: center; text-align: center; gap: 0.3rem; }
+    .seal-item img { width: 30px !important; height: 30px !important; }
+    .seal-item span { font-size: 0.65rem !important; }
 
     .trust-indicators {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        font-size: 0.8rem;
-        gap: 0.5rem;
+        font-size: 0.78rem;
+        gap: 0.4rem;
     }
 
-    .hero-text-slider {
-        min-height: 120px;
-    }
+    /* ============================================================
+       NOTICE / ATTENTION SECTION
+       ============================================================ */
+    .notice-card { padding: 0.8rem 0.6rem !important; }
+    .notice-header h2 { font-size: 0.85rem !important; }
+    .notice-body > p { font-size: 0.72rem !important; }
 
-    .text-slide h2 {
-        font-size: 1.5rem !important;
-    }
-
-    /* ---- Notice/Attention card ---- */
-    .notice-card {
-        padding: 1.2rem !important;
-    }
-
-    .notice-header h2 {
-        font-size: 1.4rem !important;
-    }
-
-    /* ---- Video section ---- */
-    .video-container {
-        padding: 10px 0 !important;
-    }
+    /* ============================================================
+       VIDEO SECTION
+       ============================================================ */
+    .video-container { padding: 8px 0 !important; }
 
     .video-promo-wrapper {
-        padding: 10px;
-        gap: 15px;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 8px !important;
     }
 
     .youtube-player-frame {
         max-width: 100% !important;
+        width: 100% !important;
         border-radius: 10px;
     }
 
     .promo-gif {
-        max-width: 85%;
+        max-width: 80% !important;
         border-radius: 12px !important;
     }
 
-    /* ---- Product icons ---- */
+    /* ============================================================
+       PRODUCT ICONS
+       ============================================================ */
     .product-icons-container {
         justify-content: flex-start;
-        gap: 1.2rem;
-        padding: 0.8rem 1rem;
+        gap: 1rem;
+        padding: 0.6rem 1rem;
     }
 
-    .product-icon-circle {
-        width: 55px !important;
-        height: 55px !important;
-    }
-
-    .product-icon-item p {
-        font-size: 0.7rem !important;
-    }
-
-    .click-here {
-        font-size: 0.6rem !important;
-    }
-
-    /* ---- About section ---- */
-    .about-section {
-        padding: 3rem 0 !important;
-    }
-
-    .about-grid {
-        grid-template-columns: 1fr !important;
-        gap: 2rem;
-    }
-
-    .about-visual {
-        display: none;
-    }
-
-    .about-content {
-        text-align: center;
-    }
-
-    .about-content .section-title {
-        text-align: center !important;
-    }
-
-    .about-description {
-        font-size: 0.95rem;
-    }
+    /* ============================================================
+       ABOUT SECTION
+       ============================================================ */
+    .about-section { padding: 2.5rem 0 !important; }
+    .about-grid { grid-template-columns: 1fr !important; gap: 1.5rem; }
+    .about-visual { display: none; }
+    .about-content { text-align: center; }
+    .about-content .section-title { text-align: center !important; }
+    .about-description { font-size: 0.9rem; }
 
     .m-point {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 0.8rem;
+        gap: 0.6rem;
     }
 
-    .about-stats {
-        justify-content: center;
-        gap: 1.5rem;
-    }
+    .about-stats { justify-content: center; gap: 1.5rem; }
+    .stat-item { text-align: center !important; }
 
-    .stat-item {
-        text-align: center !important;
-    }
-
-    /* ---- Best sellers ---- */
-    .best-sellers-section {
-        padding: 2rem 0 !important;
-    }
-
+    /* ============================================================
+       BEST SELLERS
+       ============================================================ */
+    .best-sellers-section { padding: 2rem 0 !important; }
     .best-sellers-grid {
         grid-template-columns: 1fr !important;
-        gap: 1.2rem;
+        gap: 1rem;
     }
 
-    /* ---- Features/Trust cards ---- */
-    .trust-grid-section {
-        padding: 2.5rem 0 !important;
-    }
-
+    /* ============================================================
+       FEATURES / TRUST CARDS
+       ============================================================ */
+    .trust-grid-section { padding: 2rem 0 !important; }
     .trust-cards-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 1rem;
-        margin-top: 1.5rem;
+        gap: 0.8rem;
+        margin-top: 1rem;
     }
+    .trust-card { padding: 1.2rem 0.8rem !important; }
 
-    .trust-card {
-        padding: 1.5rem 1rem !important;
+    /* ============================================================
+       WEEKLY DEALS
+       ============================================================ */
+    .weekly-deals { padding: 2rem 0 !important; }
+    .deals-header { justify-content: center; text-align: center; }
+    .deals-grid { grid-template-columns: 1fr !important; gap: 1rem; }
+    .deal-timer { width: 100%; justify-content: center; }
+    .timer-slots { gap: 0.8rem; }
+
+    /* ============================================================
+       HOW IT WORKS
+       ============================================================ */
+    .how-it-works { padding: 2rem 0 !important; }
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem;
     }
+    .step-card { padding: 1.2rem 0.8rem !important; }
 
-    /* ---- Deals ---- */
-    .weekly-deals {
-        padding: 2rem 0 !important;
+    /* ============================================================
+       STATS
+       ============================================================ */
+    .stats-section { padding: 2rem 0 !important; }
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem;
     }
+    .stat-card { padding: 1.2rem 0.8rem !important; }
 
-    .deals-header {
-        justify-content: center;
-        text-align: center;
+    /* ============================================================
+       PRICING
+       ============================================================ */
+    .pricing-grid { grid-template-columns: 1fr !important; gap: 1rem; }
+    .pricing-card.featured { transform: scale(1) !important; }
+
+    /* ============================================================
+       SERVICES GRID
+       ============================================================ */
+    .services-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.8rem; }
+    .service-card { padding: 1.2rem 0.8rem !important; }
+
+    /* ============================================================
+       SECTION TITLES
+       ============================================================ */
+    .section-title { font-size: 1.4rem !important; margin-bottom: 1rem !important; }
+
+    /* ============================================================
+       CHATBOT, SCROLL, FLOATING BUTTONS
+       ============================================================ */
+    .chatbot-wrapper { bottom: 80px !important; }
+    #scroll-top { bottom: 150px !important; right: 15px !important; }
+    .wa-float { right: 15px !important; bottom: 95px !important; width: 48px !important; height: 48px !important; }
+
+    /* ============================================================
+       CART SIDEBAR
+       ============================================================ */
+    .cart-sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        right: -100% !important;
     }
+    .cart-sidebar.active { right: 0 !important; }
 
-    .deals-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1.2rem;
-    }
-
-    .deal-timer {
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 1.5rem; }
+    .footer-content { flex-direction: column; text-align: center; gap: 1rem; }
+    .footer-social-bottom { flex-direction: column; gap: 0.8rem; align-items: center; }
+    .yt-button-premium, .fb-button-premium {
+        font-size: 0.85rem;
+        padding: 0.7rem 1.2rem;
         width: 100%;
         justify-content: center;
     }
 
-    /* ---- How it works ---- */
-    .how-it-works {
-        padding: 2.5rem 0 !important;
+    /* ============================================================
+       SALES NOTIFICATION
+       ============================================================ */
+    .sales-notification {
+        left: 8px !important;
+        right: 8px !important;
+        max-width: none;
+        bottom: 80px !important;
     }
 
-    .steps-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 1rem;
-    }
-
-    .step-card {
-        padding: 1.5rem 1rem !important;
-    }
-
-    /* ---- Stats section ---- */
-    .stats-section {
-        padding: 2.5rem 0 !important;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 1rem;
-    }
-
-    .stat-card {
-        padding: 1.5rem 1rem !important;
-    }
-
-    /* ---- Pricing section ---- */
-    .pricing-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1.2rem;
-    }
-
-    /* ---- Section titles ---- */
-    .section-title {
-        font-size: 1.4rem !important;
-        margin-bottom: 1.2rem;
-    }
-
-    /* ---- Chatbot & Scroll ---- */
-    .chatbot-wrapper {
-        bottom: 85px !important;
-    }
-
-    #scroll-top {
-        bottom: 155px !important;
-    }
-
-    /* ---- Footer ---- */
-    .footer-grid {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 2rem;
-    }
-
-    /* ---- Cart sidebar ---- */
-    .cart-sidebar {
-        width: 100% !important;
-        max-width: 100% !important;
+    /* ============================================================
+       COOKIES
+       ============================================================ */
+    .cookies-banner {
+        left: 8px !important;
+        right: 8px !important;
+        bottom: 80px !important;
+        max-width: none;
     }
 }
 
 
 /* ==========================================================================
-   SMALL PHONES (480px ↓)
+   SMALL PHONES (480px and below)
    ========================================================================== */
 @media (max-width: 480px) {
 
-    /* ---- Navbar ---- */
-    .nav-actions {
-        gap: 0.5rem !important;
-    }
+    .massive-no { font-size: 2.6rem !important; }
+    .hero-super-title { font-size: 0.82rem !important; letter-spacing: 0; }
+    .text-slide h2 { font-size: 1.2rem !important; }
 
-    /* ---- Hero ---- */
-    .massive-no {
-        font-size: 2.8rem !important;
-    }
+    .trust-cards-grid { grid-template-columns: 1fr !important; }
+    .steps-grid { grid-template-columns: 1fr !important; }
+    .stats-grid { grid-template-columns: 1fr !important; }
+    .services-grid { grid-template-columns: 1fr !important; }
 
-    .hero-super-title {
-        font-size: 0.9rem !important;
-    }
+    .section-title { font-size: 1.2rem !important; }
 
-    .hero-text-slider {
-        min-height: 100px;
-    }
+    .banner-img { height: 110px !important; }
 
-    .text-slide h2 {
-        font-size: 1.3rem !important;
-    }
-
-    /* ---- Trust cards (1 column for very small) ---- */
-    .trust-cards-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    /* ---- Steps grid ---- */
-    .steps-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    /* ---- Stats grid ---- */
-    .stats-grid {
-        grid-template-columns: 1fr !important;
-    }
-
-    /* ---- Section title ---- */
-    .section-title {
-        font-size: 1.2rem !important;
-    }
-
-    /* ---- Footer ---- */
-    .footer-grid {
-        grid-template-columns: 1fr !important;
-        text-align: center;
-    }
-
-    .footer-brand,
-    .footer-links {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* ---- Attention notice ---- */
-    .notice-card {
-        padding: 1rem !important;
-    }
-
-    .notice-body p {
-        font-size: 0.85rem;
-    }
-
-    /* ---- Product icons ---- */
-    .product-icon-circle {
-        width: 48px !important;
-        height: 48px !important;
-    }
-
-    /* ---- Deal timer ---- */
-    .timer-slots {
-        gap: 0.6rem;
-    }
-
-    .slot span {
-        font-size: 1rem;
-    }
+    .footer-grid { grid-template-columns: 1fr !important; text-align: center; }
 }
 
 
 /* ==========================================================================
-   ULTRA SMALL (360px ↓)
+   ULTRA SMALL (360px and below)
    ========================================================================== */
 @media (max-width: 360px) {
 
-    .massive-no {
-        font-size: 2.4rem !important;
-    }
+    .massive-no { font-size: 2.2rem !important; }
+    .logo-text { display: none; }
+    .banner-img { height: 90px !important; }
+    body { font-size: 13px; }
+    .nav-actions { gap: 0.3rem !important; }
 
-    .hero-super-title {
-        font-size: 0.8rem !important;
-    }
-
-    .logo-text {
-        display: none;
-    }
-
-    .banner-img {
-        height: 100px;
-    }
-
-    body {
-        font-size: 13px;
+    .trust-seals-row {
+        grid-template-columns: 1fr !important;
     }
 }
